@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup';
+import {useState} from 'react';
 
 function Header(props){
   return <header><h1><a href="/" onClick={(evt)=>{
@@ -29,7 +30,7 @@ function Nav(props){
     return <li key={e.id}><a href={'/read/'+e.id}  onClick={(evt)=>{
       evt.preventDefault()
       console.log('evt', evt)
-      props.onSelect();
+      props.onSelect(e.id);
     }}>{e.title}</a></li>
   })
   return <nav><ol>{liTags}</ol></nav>
@@ -38,24 +39,30 @@ function Nav(props){
 
 // }
 function App() {
-  // const topics = [
-  //   {id:1, title:'html', body:'html is ...'},
-  //   {id:2, title:'css', body:'css is ...'}
-  // ];
+  let [mode, setMode] = useState('WELCOME')
   const topics = [
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
   ];
+  let content = null
+
+  if(mode === 'WELCOME'){
+    content = <Article title="Welcome" body="Hello, WEB!"></Article>
+  }else if(mode === 'READ'){
+    content = <Article title="READ" body="Hello, READ!"></Article>
+  }
   return (
     <div>
       <Header onSelect={()=>{
-        alert('Header!!!')
+        //mode = 'WELCOME'
+        setMode('WELCOME')
       }}></Header>
       {/* <Nav data={topics}></Nav> */}
-      <Nav data={topics} onSelect={()=>{
-        alert('Nav!!!')
+      <Nav data={topics} onSelect={(id)=>{
+        //mode = 'READ'
+        setMode('READ')
       }}></Nav>
-      <Article title="Welcome" body="Hello, WEB!"></Article>
+      {content}
       <ButtonGroup>
         <Button variant="outlined" onClick={()=>{
           alert('create!')
