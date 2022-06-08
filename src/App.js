@@ -39,7 +39,9 @@ function Nav(props){
 
 // }
 function App() {
-  let [mode, setMode] = useState('WELCOME')
+  const [mode, setMode] = useState('WELCOME')
+  const [id, setId] = useState(null)
+  console.log(mode, id)
   const topics = [
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
@@ -49,18 +51,23 @@ function App() {
   if(mode === 'WELCOME'){
     content = <Article title="Welcome" body="Hello, WEB!"></Article>
   }else if(mode === 'READ'){
-    content = <Article title="READ" body="Hello, READ!"></Article>
+    const topic = topics.filter(e=>{
+      if(e.id === id) {
+        return true
+      } else {
+        return false
+      }
+    })[0]
+    content = <Article title={topic.title} body={topic.body}></Article>
   }
   return (
     <div>
       <Header onSelect={()=>{
-        //mode = 'WELCOME'
         setMode('WELCOME')
       }}></Header>
-      {/* <Nav data={topics}></Nav> */}
       <Nav data={topics} onSelect={(id)=>{
-        //mode = 'READ'
         setMode('READ')
+        setId(id)
       }}></Nav>
       {content}
       <ButtonGroup>
