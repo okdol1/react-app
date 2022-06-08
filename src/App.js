@@ -1,8 +1,12 @@
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-function Header(){
-  return <header><h1><a href="/">WWW</a></h1></header>
+function Header(props){
+  return <header><h1><a href="/" onClick={(evt)=>{
+    evt.preventDefault()
+    console.log('evt', evt)
+    props.onSelect();
+  }}>WWW</a></h1></header>
 }
 // function Nav(props){
 //   const list = props.data.map((e)=>{
@@ -22,7 +26,11 @@ function Article(props){
 }
 function Nav(props){
   const liTags = props.data.map((e)=>{
-    return <li><a href={'/read/'+e.id}>{e.title}</a></li>
+    return <li key={e.id}><a href={'/read/'+e.id}  onClick={(evt)=>{
+      evt.preventDefault()
+      console.log('evt', evt)
+      props.onSelect();
+    }}>{e.title}</a></li>
   })
   return <nav><ol>{liTags}</ol></nav>
 }
@@ -44,7 +52,9 @@ function App() {
         alert('Header!!!')
       }}></Header>
       {/* <Nav data={topics}></Nav> */}
-      <Nav data={topics}></Nav>
+      <Nav data={topics} onSelect={()=>{
+        alert('Nav!!!')
+      }}></Nav>
       <Article title="Welcome" body="Hello, WEB!"></Article>
       <ButtonGroup>
         <Button variant="outlined" onClick={()=>{
