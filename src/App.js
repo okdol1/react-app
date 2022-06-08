@@ -26,6 +26,9 @@ function Nav(props){
   })
   return <nav><ol>{liTags}</ol></nav>
 }
+// function createHandler() {
+
+// }
 function App() {
   // const topics = [
   //   {id:1, title:'html', body:'html is ...'},
@@ -37,12 +40,16 @@ function App() {
   ];
   return (
     <div>
-      <Header></Header>
+      <Header onSelect={()=>{
+        alert('Header!!!')
+      }}></Header>
       {/* <Nav data={topics}></Nav> */}
       <Nav data={topics}></Nav>
       <Article title="Welcome" body="Hello, WEB!"></Article>
       <ButtonGroup>
-        <Button variant="outlined">Create</Button>
+        <Button variant="outlined" onClick={()=>{
+          alert('create!')
+        }}>Create</Button>
         <Button variant="outlined">Update</Button>
       </ButtonGroup>
       <Button variant="outlined">Delete</Button>
