@@ -1,25 +1,25 @@
 import './App.css';
+import {useState} from 'react';
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup';
-import {useState} from 'react';
+// import styled from '@emotion/styled';
+import styled from 'styled-components'
+
 
 function Header(props){
-  return <header><h1><a href="/" onClick={(evt)=>{
+  console.log(props)
+  return <header className={props.className}><h1><a href="/" onClick={(evt)=>{
     evt.preventDefault()
     console.log('evt', evt)
     props.onSelect();
   }}>WWW</a></h1></header>
 }
-// function Nav(props){
-//   const list = props.data.map((e)=>{
-//     return <li key={e.id}><a href={'/read/'+e.id}>{e.title}</a></li>
-//   });
-//   return <nav>
-//     <ol>
-//         {list}
-//     </ol>
-//   </nav>
-// }
+
+const HeaderStyled = styled(Header)`
+  border-bottom: 1px solid gray;
+  color: red;
+`
+
 function Article(props){
   return <article>
     <h2>{props.title}</h2>
@@ -63,9 +63,9 @@ function App() {
   }
   return (
     <div>
-      <Header onSelect={()=>{
+      <HeaderStyled onSelect={()=>{
         setMode('WELCOME')
-      }}></Header>
+      }}></HeaderStyled>
       <Nav data={topics} onSelect={(id)=>{
         setMode('READ')
         setId(id)
