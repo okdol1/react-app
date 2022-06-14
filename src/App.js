@@ -2,7 +2,6 @@ import './App.css';
 import {useState} from 'react';
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup';
-// import styled from '@emotion/styled';
 import styled from 'styled-components'
 
 
@@ -10,7 +9,6 @@ function Header(props){
   console.log(props)
   return <header className={props.className}><h1><a href="/" onClick={(evt)=>{
     evt.preventDefault()
-    console.log('evt', evt)
     props.onSelect();
   }}>WWW</a></h1></header>
 }
@@ -30,7 +28,6 @@ function Nav(props){
   const liTags = props.data.map((e)=>{
     return <li key={e.id}><a href={'/read/'+e.id}  onClick={(evt)=>{
       evt.preventDefault()
-      console.log('evt', evt)
       props.onSelect(e.id);
     }}>{e.title}</a></li>
   })
@@ -76,7 +73,7 @@ function App() {
     content = <Create onCreate={(title, body) => {
       const newTopic = {id: nextId, title, body}
       const newTopics = [...topics]
-      newTopics.push(newTopics)
+      newTopics.push(newTopic)
       setTopics(newTopics)
       setId(nextId)
       setMode('READ')
@@ -99,7 +96,18 @@ function App() {
         }}>Create</Button>
         <Button variant="outlined">Update</Button>
       </ButtonGroup>
-      <Button variant="outlined">Delete</Button>
+      <Button variant="outlined" onClick={()=> {
+        const newTopics = topics.filter((e)=>{
+          if(e.id === id){
+            return false;
+          } else {
+            return true;
+          }
+        });
+        setMode('WELCOME');
+        setTopics(newTopics);
+
+      }}>Delete</Button>
     </div>
   );
 }
